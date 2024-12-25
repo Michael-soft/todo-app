@@ -22,6 +22,7 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ username });
+// sourcery skip: use-braces
     if (!user) return res.status(400).render('login', { error_message: 'Invalid username or password' });
     const validPass = await bcrypt.compare(password, user.password);
     if (!validPass) return res.status(400).render('login', { error_message: 'Invalid username or password' });
@@ -36,6 +37,7 @@ router.post('/login', async (req, res) => {
 });
 router.get('/logout', (req, res) => {
   req.session.destroy(err => {
+// sourcery skip: use-braces
     if (err) return res.status(500).send('Could not log out');
     res.redirect('/');
   });
